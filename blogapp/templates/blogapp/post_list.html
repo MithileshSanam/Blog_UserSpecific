@@ -1,0 +1,33 @@
+{% extends 'blogapp/base.html' %}
+{% block nameblock %}
+Posts
+{% endblock %}
+{% block title_block %}
+<h1 class = 'bd-title'>Posts</h1>
+{% endblock %}
+{% block bodyblock %}
+
+{% for post in post_list %}
+<div class="card m-5 mt-3 mb-3">
+  <div class="card-header">
+
+    <div class="row">
+      <div class="col ms-2">
+        <strong>{{post.author}}</strong>
+      </div>
+      <div class="col">
+        <div class="text-end me-5">
+          <small>{{ post.published_date|date:"D, d M Y h:i A"}}</small>
+        </div>
+      </div>
+    </div>
+
+  </div>
+  <div class="card-body">
+    <h5 class="card-title">{{post.title}}</h5>
+    <p class="card-text">{{post.text|safe|truncatewords:"50"|linebreaks}}</p>
+    <a class='stretched-link' href="{% url 'blogapp:post_detail' pk=post.id %}"></a>
+  </div>
+</div>
+{% endfor %}
+{% endblock %}

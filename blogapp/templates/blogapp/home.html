@@ -1,0 +1,47 @@
+{% extends 'blogapp/base.html' %}
+{% block nameblock %}
+Home
+{% endblock %}
+
+{% if user.is_authenticated %}
+{% block title_block %}
+<h1 class = 'bd-title'>Welcome!</h1>
+{% endblock %}
+{% endif %}
+
+
+{% block bodyblock %}
+
+{% if not user.is_authenticated %}
+<div class="text-sm-center p-5 bg-light">
+  <h1>Home Page</h1>
+</div>
+
+{% else %}
+
+{% if post_list.count == 0 %}
+<p class='bd-label' style="margin-left:50px;">You do not have any posts yet!</p>
+{% else %}
+<p class='bd-label' style="margin-left:50px;">Your Posts</p>
+{% endif %}
+{% for post in post_list %}
+<div class="card m-5 mt-3 mb-3">
+  <div class="card-header">
+    <div class="row">
+      <div class="col ms-2">
+        <strong>{{post.author}}</strong>
+      </div>
+      <div class="col">
+        <div class="text-end me-5"><small>{{ post.published_date|date:"D, d M Y h:i A"}}</small></div>
+      </div>
+    </div>
+  </div>
+  <div class="card-body">
+    <h5 class="card-title">{{post.title}}</h5>
+    <p class="card-text">{{post.text|safe|truncatewords:"50"|linebreaks}}</p>
+    <a class='stretched-link' href="{% url 'blogapp:post_detail' pk=post.id %}"></a>
+  </div>
+</div>
+{% endfor %}
+{% endif %}
+{% endblock %}

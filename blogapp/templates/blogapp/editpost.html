@@ -1,0 +1,19 @@
+{% extends 'blogapp/base.html' %}
+{% block nameblock %}
+Edit Post
+{% endblock %}
+{% block title_block %}
+<h1 class = 'bd-title'>Edit Post</h1>
+{% endblock %}
+{% block bodyblock %}
+
+<form class="m-5 mt-2" method="post">
+  {% csrf_token %}
+    <label for="fortitle" class="form-label bd-label">Title</label>
+    {{form.title}}
+    <label for="fortext" class="form-label bd-label">Text</label>
+    {{form.text}}
+  <input type="submit" class="btn btn-primary mt-2" value="Submit">
+</form>
+
+{% endblock %}

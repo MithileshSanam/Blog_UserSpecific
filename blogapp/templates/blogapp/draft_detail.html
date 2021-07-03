@@ -1,0 +1,34 @@
+{% extends 'blogapp/base.html' %}
+{% block nameblock %}
+Draft Post
+{% endblock %}
+{% block title_block %}
+<h1 class = 'bd-title'>Draft Post</h1>
+{% endblock %}
+
+{% block bodyblock %}
+
+<div class="card m-5 mt-3 mb-3">
+  <div class="card-header">
+    <strong class='ms-2'>{{post.author}}</strong>
+  </div>
+  <div class="card-body">
+
+<form action="{% url 'blogapp:draft_post' pid=post.id %}" method="post">
+  {% csrf_token %}
+    <div class="mb-3">
+      <label for="exampleFormControlInput1" class="form-label">Title</label>
+      <input type="text" name='draft_title' class="form-control" id="exampleFormControlInput1" value='{{post.title}}'>
+    </div>
+    <div class="mb-3">
+      <label for="exampleFormControlTextarea1" class="form-label">Text</label>
+      <textarea class="form-control" name='draft_text' id="exampleFormControlTextarea1" rows="3">{{post.text}}</textarea>
+    </div>
+
+<input type="submit" name='draft_submit' class='btn btn-primary me-3' value="Submit">
+<input type="submit" name='draft_delete' class='btn btn-danger' value="Delete">
+</form>
+  </div>
+</div>
+
+{% endblock %}

@@ -1,0 +1,15 @@
+{% extends "blogapp/base.html" %}
+{% block nameblock %}
+Delete Post
+{% endblock %}
+{% block title_block %}
+<h1 class = 'bd-title'>Delete Post</h1>
+{% endblock %}
+{% block bodyblock %}
+  <form class='m-5 mt-2' method="post">
+    {% csrf_token %}
+    <p>Are you sure you want to delete ?</p>
+    <input class='btn btn-danger' type="submit" value="Confirm" />
+    <a class='btn btn-info' href="{% url 'blogapp:post_list' %}">Cancel</a>
+  </form>
+{% endblock %}

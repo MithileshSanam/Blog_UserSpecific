@@ -1,0 +1,22 @@
+{% extends 'blogapp/base.html' %}
+{% block nameblock %}
+Create Post
+{% endblock %}
+{% block title_block %}
+<h1 class = 'bd-title'>Create Post</h1>
+{% endblock %}
+{% block bodyblock %}
+<!-- {{form.title}} -->
+<form method="post">
+  {% csrf_token %}
+  <div class="form-floating m-5 mt-2 mb-0">
+  {{form.as_p}}
+  </div>
+
+  <input type="submit" name='submit_post' class="btn btn-primary mt-2 ms-5 me-2" value="Submit">
+  <input type="submit" name='draft_post' class="btn btn-secondary mt-2 mx-2" value="Draft">
+  <a class="btn btn-danger mt-2 mx-2" href='{% url 'blogapp:post_list' %}'>Cancel</a>
+</form>
+
+
+{% endblock %}

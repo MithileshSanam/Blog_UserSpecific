@@ -1,0 +1,143 @@
+{% extends 'blogapp/base.html' %}
+{% block title_block %}
+<h1 class = 'bd-title'>Post Detail Page</h1>
+{% endblock %}
+{% block nameblock %}
+Post Detail Page
+{% endblock %}
+
+{% block bodyblock %}
+<div class="card m-5 mt-3 mb-3">
+  <div class="card-header">
+    <div class="row">
+      <div class="col ms-2">
+        <strong>{{post.author}}</strong>
+      </div>
+      <div class="col">
+        <div class="text-end me-5">
+          <small>{{ post.published_date|date:"D, d M Y h:i A"}}</small>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="card-body">
+    <h5 class="card-title">{{post.title}}</h5>
+    <p class="card-text">{{post.text}}</p>
+  </div>
+</div>
+<div class="m-5 mb-0 mt-3">
+  {% if post.author == user %}
+  <a class='btn btn-sm btn-primary' href='{% url "blogapp:editpost" pk=post.id %}'>Edit Post</a>
+  <a class='btn btn-sm btn-danger' href='{% url "blogapp:deletepost" pk=post.id %}'>Delete Post</a>
+  {% endif %}
+  <button onclick="myFunction()" class='btn btn-secondary btn-sm'>
+    <i class="material-icons" style='vertical-align:center; font-size:1em;'>add</i>Add Comment
+  </button>
+</div>
+
+<div id="commentdiv" style='display:none'>
+  <h6 class='m-5 mt-3 mb-0' style='font-size:1.5rem'> Add Comment</h6>
+  <form action="{% url 'blogapp:comment' cid=post.id %}" method="post">
+    {% csrf_token %}
+
+    <div class="container overflow-hidden m-5 mt-3 mb-0">
+      <div class="row gx-5">
+      <div class="col-md-10">
+        <label for="exampleFormControlTextarea1" class="form-label">Comment</label>
+        <textarea class="form-control" name='comment' id="exampleFormControlTextarea1" rows="3"></textarea>
+      </div>
+    </div>
+    <input type="submit" class="btn btn-primary btn-sm mt-3" value="Add Comment">
+  </div>
+
+</form>
+</div>
+
+<h1 class = 'bd-label m-5 mt-3 mb-0'>Comments</h1>
+{% if post.comments.count != 0 %}
+{% for comment in post.comments.all %}
+<div id='vanish_edit_{{comment.id}}'>
+
+  <div class="card m-5 mt-3 mb-0">
+    <div class="card-body">
+      <p class="card-text">{{comment.text}}</p>
+
+      <div class="row">
+        <div class="col-sm-2">
+          <h6 class="card-title">{{comment.author}}</h6>
+        </div>
+
+
+        {% if user == comment.author or  user == post.author%}
+        <div class="col-sm-1">
+          <button class='btn btn-outline-secondary btn-sm' onclick="vanishFunction({{comment.id}})">Edit</button>
+        </div>
+
+        <form class="col-sm-1" action="{% url 'blogapp:delete_comment' cid=comment.id %}" method="post">
+          {% csrf_token %}
+          <button class='btn btn-outline-danger btn-sm' type="submit">Delete</button>
+        </form>
+        {% endif %}
+
+      </div>
+    </div>
+  </div>
+
+</div>
+<div id="appear_edit_{{comment.id}}" style="display:none">
+  <div class="card m-5 mt-3 mb-0">
+    <div class="card-body">
+
+      <form action="{% url 'blogapp:edit_comment' cid=comment.id %}" method="post">
+        {% csrf_token %}
+        <div class="form-floating">
+          <textarea class="form-control" name='comment_text' id="floatingTextarea">{{comment.text}}</textarea>
+          <label for="floatingTextarea">Edit Comment</label>
+        </div>
+
+        <div class="row mt-3">
+          <div class="col-sm-2">
+            <h6 class="card-title">{{comment.author}}</h6>
+          </div>
+
+
+          <div class="col-sm-1">
+            <button class='btn btn-outline-secondary btn-sm' type="submit">Update</button>
+          </div>
+
+
+          <div class="col-sm-1">
+            <a class='btn btn-outline-danger btn-sm' href="javascript:location.reload(true)">Cancel</a>
+          </div>
+        </div>
+      </form>
+    </div>
+  </div>
+</div>
+{% endfor %}
+{% else %}
+<div class="text-sm-center p-5 bg-light m-5 mt-0">
+  <small>No Comments</small>
+</div>
+{% endif %}
+
+
+<script>
+  function myFunction() {
+    var x = document.getElementById("commentdiv");
+    if (x.style.display === "none") {
+      x.style.display = "block";
+    } else {
+      x.style.display = "none";
+    }
+  }
+
+  function vanishFunction(comment_id) {
+    var x = document.getElementById("vanish_edit_"+comment_id);
+    x.style.display = "none";
+    var y = document.getElementById("appear_edit_"+comment_id);
+    y.style.display = "block";
+  }
+
+</script>
+{% endblock %}

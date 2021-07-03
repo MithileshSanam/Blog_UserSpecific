@@ -1,0 +1,22 @@
+{% extends 'blogapp/base.html' %}
+{% block nameblock %}
+Draft Post
+{% endblock %}
+{% block title_block %}
+<h1 class = 'bd-title'>Draft Posts</h1>
+{% endblock %}
+{% block bodyblock %}
+
+{% for post in post_list %}
+<div class="card m-5 mt-3 mb-3">
+  <div class="card-header">
+        <strong class="col ms-2">{{post.author}}</strong>
+  </div>
+  <div class="card-body">
+    <h5 class="card-title">{{post.title}}</h5>
+    <p class="card-text">{{post.text|safe|truncatewords:"50"|linebreaks}}</p>
+    <a class='stretched-link' href="{% url 'blogapp:draft_detail' pk=post.id %}"></a>
+  </div>
+</div>
+{% endfor %}
+{% endblock %}

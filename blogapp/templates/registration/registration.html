@@ -1,0 +1,27 @@
+{% extends 'blogapp/base.html' %}
+{% block nameblock %}
+Registration
+{% endblock %}
+
+{% block bodyblock %}
+<div class="ms-5 mt-5">
+
+  <h1 class = 'bd-label mb-3'>Registration</h1>
+  <form action='{% url "register" %}' method='post'>
+    {% csrf_token %}
+    <div class="mb-3">
+      <label for="exampleInputEmail1" class="form-label">Username</label>
+      <input type="text" name='username' style="width:40%" class="form-control" id="exampleInputEmail1">
+    </div>
+    <div class="mb-3">
+      <label for="exampleInputPassword1" class="form-label">Password</label>
+      <input type="password" name='password1' style="width:40%" class="form-control" id="exampleInputPassword1">
+    </div>
+    <div class="mb-3">
+      <label for="exampleInputPassword2" class="form-label">Enter Password Again</label>
+      <input type="password" name='password2' style="width:40%" class="form-control" id="exampleInputPassword2">
+    </div>
+    <button type="submit" class="btn btn-primary">Submit</button>
+  </form>
+</div>
+{% endblock %}
