@@ -28,7 +28,7 @@ SECRET_KEY = 'django-insecure-&d=hnw&i4lt3ylgon_zr6wx2z11d0c6ezqw@b*+^me7feu+471
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = False
 
-ALLOWED_HOSTS = []
+ALLOWED_HOSTS = ['https://crud-blog-userspecific.herokuapp.com/']
 
 
 # Application definition
@@ -81,10 +81,10 @@ WSGI_APPLICATION = 'BlogSite.wsgi.application'
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.postgresql_psycopg2',
-        'NAME': 'desgau78l6tc7e',
-        'USER': 'peivhzqsqlxqyx',
-        'PASSWORD': 'c40a7f3e88e5af087191964da3f03226505bdb03e6a63a9967da74aaad3ad2b9',
-        'HOST': 'ec2-35-174-35-242.compute-1.amazonaws.com',
+        'NAME': 'd936r49djnrrag',
+        'USER': 'voufuuvahzwdml',
+        'PASSWORD': '4f556956b3a7264506e72aab21f9526b3312fd96f4dedeb80c078f08cb7705f3',
+        'HOST': 'ec2-3-89-0-52.compute-1.amazonaws.com',
         'PORT': '5432',
     }
 }
